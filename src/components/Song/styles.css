@@ -1,0 +1,27 @@
+.song {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  text-align: center;
+  width: 200px;
+  height: auto;
+}
+
+.song-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #61dafb;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #4fa3c4;
+}

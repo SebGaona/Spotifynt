@@ -1,0 +1,19 @@
+.search-results {
+  margin: 20px;
+}
+
+.search-bar {
+  width: 80%;
+  padding: 10px;
+  align-self: center;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.song-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
