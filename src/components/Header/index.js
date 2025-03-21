@@ -1,11 +1,13 @@
 import React from 'react';
 import './styles.css';
-import logo from '../../img/logo.png'
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
         <header className="header">
-            <span className="title">Spotifyn't</span>
+            <Link to="/" className='title'>
+                Spotifyn't
+            </Link>
         </header>
     );
 };

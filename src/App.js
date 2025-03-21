@@ -1,48 +1,61 @@
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import SearchResults from './components/SearchResults';
-import Library from './components/Library';
-import './App.css';
-import placeholder from './img/placeholder.jpg';
-
-
+import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import SearchResults from "./components/SearchResults";
+import Library from "./components/Library";
+import SongDetails from "./components/SongDetails";
+import useFetchSongs from "./hooks/useFetchSongs";
 
 const App = () => {
-    const [searchResults, setSearchResults] = useState([
-        { id: 1, title: 'Rock Revolution', artist: 'The Rockers', length: '4:30', image: placeholder },
-        { id: 2, title: 'Guitar Legends', artist: 'Legendary Strings', length: '5:12', image: placeholder },
-        { id: 3, title: 'Thunderstruck Beats', artist: 'Storm Riders', length: '3:45', image: placeholder },
-        { id: 4, title: 'Echoes of Freedom', artist: 'Freedom Voices', length: '6:10', image: placeholder },
-        { id: 5, title: 'Fire and Strings', artist: 'Flame Band', length: '4:20', image: placeholder },
-        { id: 6, title: 'Rise of the Amp', artist: 'Amp Masters', length: '5:00', image: placeholder },
-        { id: 7, title: 'Melody in Flames', artist: 'Burning Notes', length: '3:55', image: placeholder },
-        { id: 8, title: 'Power Chord', artist: 'Electric Pulse', length: '4:15', image: placeholder },
-        { id: 9, title: 'Riff Riders', artist: 'String Cyclones', length: '5:30', image: placeholder },
-        { id: 10, title: 'Legends of Noise', artist: 'Noise Makers', length: '4:40', image: placeholder },
-        { id: 11, title: 'Chasing Horizons', artist: 'Skyline Band', length: '5:05', image: placeholder },
-        { id: 12, title: 'Electric Dreams', artist: 'Neon Pulse', length: '4:25', image: placeholder },
-        { id: 13, title: 'Whispering Echoes', artist: 'Echo Beats', length: '6:00', image: placeholder },
-        { id: 14, title: 'Shattered Silence', artist: 'Broken Waves', length: '3:50', image: placeholder },
-        { id: 15, title: 'Starlight Serenade', artist: 'Cosmic Harmonies', length: '4:35', image: placeholder },
-    ]);
-
     const [library, setLibrary] = useState([]);
+    const { data, error, handleSearch } = useFetchSongs();
+    const navigate = useNavigate();
 
     const addToLibrary = (song) => {
-        if (!library.some((s) => s.id === song.id)) {
-            setLibrary([...library, song]);
-        }
+        setLibrary((prevLibrary) => {
+            if (!prevLibrary.some((s) => s.id === song.id)) {
+                console.log("Canción agregada:", song);
+                return [...prevLibrary, song];
+            }
+            console.log(`La canción "${song.title}" ya está en la biblioteca.`);
+            return prevLibrary;
+        });
+    };
+
+    const viewSongDetails = (song) => {
+        navigate(`/song/${song.id}`, { state: song });
     };
 
     useEffect(() => {
-        console.log('Biblioteca actualizada:', library);
+        console.log("Estado de library actualizado:", library);
     }, [library]);
 
     return (
         <div className="App">
             <Header />
-            <SearchResults songs={searchResults} onAddToLibrary={addToLibrary} />
-            <Library library={library} />
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <div className="main-view">
+                            <SearchBar onSearch={handleSearch} />
+                {data && data.data.length > 0 && (
+                    <div className="search-results">
+                        <SearchResults
+                            data={data}
+                            error={error}
+                            onAddToLibrary={addToLibrary}
+                            onViewDetails={viewSongDetails}
+                        />
+                    </div>
+                )}
+                                <Library library={library} />
+                            </div>
+                    }
+                />
+                <Route path="/song/:id" element={<SongDetails />} />
+            </Routes>
         </div>
     );
 };

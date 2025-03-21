@@ -1,36 +1,37 @@
-import React, { useState } from 'react';
-import Song from '../Song';
-import './styles.css';
+import React from "react";
+import Song from "../Song";
+import './styles.css'
 
-const SearchResults = ({ songs, onAddToLibrary }) => {
-    const [searchTerm, setSearchTerm] = useState('');
-
-    const filteredSongs = songs.filter((song) =>
-        song.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
+const SearchResults = ({ data, error, onAddToLibrary, onViewDetails }) => {
     return (
         <div className="search-results">
-            <h2>Resultados de Búsqueda</h2>
-            <input
-                type="text"
-                placeholder="Buscar canciones..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-bar"
-            />
-            <div className="song-list">
-                {filteredSongs.map((song) => (
-                    <Song
-                        key={song.id}
-                        title={song.title}
-                        artist={song.artist}
-                        length={song.length}
-                        image={song.image}
-                        onAdd={() => onAddToLibrary(song)}
-                    />
-                ))}
-            </div>
+            {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
+            {data && data.data.length > 0 ? (
+                data.data.map((track) => (
+                    <div className="search-card" key={track.id}>
+                        <img src={track.album.cover_medium} alt={track.title} />
+                        <div className="search-card-content">
+                            <p className="search-card-title">{track.title}</p>
+                            <p className="search-card-artist">{track.artist.name}</p>
+                            <p className="search-card-length"> Duracion:
+                                {`${Math.floor(track.duration / 60)}:${(track.duration % 60)
+                                    .toString()
+                                    .padStart(2, "0")}`}
+                            </p>
+                        </div>
+                        <div className="search-card-actions">
+                            <button className="add-button" onClick={() => onAddToLibrary(track)}>
+                                Agregar a mi biblioteca
+                            </button>
+                            <button className="details-button" onClick={() => onViewDetails(track)}>
+                                Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <p>No se encontraron resultados.</p>
+            )}
         </div>
     );
 };
