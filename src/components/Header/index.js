@@ -1,14 +1,14 @@
 import React from 'react';
-import './styles.css';
 import { Link } from 'react-router-dom';
+import { HeaderCont, Title } from './styles'
 
 const Header = () => {
     return (
-        <header className="header">
-            <Link to="/" className='title'>
+        <HeaderCont className="header">
+            <Title as={Link} to="/" className='title'>
                 Spotifyn't
-            </Link>
-        </header>
+            </Title>
+        </HeaderCont>
     );
 };
 

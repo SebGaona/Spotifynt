@@ -1,17 +1,18 @@
 import React from "react";
-import "./styles.css";
 import placeholder from "../../img/placeholder.jpg";
+import {SongCont, SongImage, Button} from "./styles";
+
 
 const Song = ({ title, artist, length, image, onAdd, onViewDetails }) => {
     return (
-        <div className="song">
-            <img src={image || placeholder} alt={title} className="song-image" />
+        <SongCont className="song">
+            <SongImage src={image || placeholder} alt={title} className="song-image" />
             <h3>{title}</h3>
             <p>Artista: {artist}</p>
             <p>Duración: {length}</p>
-            <button onClick={onAdd}>Agregar a mi biblioteca</button>
-            <button onClick={onViewDetails}>Ver Detalles</button>
-        </div>
+            <Button onClick={onAdd}>Agregar a mi biblioteca</Button>
+            <Button onClick={onViewDetails}>Ver Detalles</Button>
+        </SongCont>
     );
 };
 

@@ -6,6 +6,8 @@ import SearchResults from "./components/SearchResults";
 import Library from "./components/Library";
 import SongDetails from "./components/SongDetails";
 import useFetchSongs from "./hooks/useFetchSongs";
+import { ThemeProvider } from "styled-components";
+import Theme from "./theme/Index";
 
 const App = () => {
     const [library, setLibrary] = useState([]);
@@ -32,6 +34,7 @@ const App = () => {
     }, [library]);
 
     return (
+        <ThemeProvider theme={Theme}>
         <div className="App">
             <Header />
             <Routes>
@@ -57,6 +60,7 @@ const App = () => {
                 <Route path="/song/:id" element={<SongDetails />} />
             </Routes>
         </div>
+        </ThemeProvider>
     );
 };
 

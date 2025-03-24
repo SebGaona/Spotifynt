@@ -1,38 +1,38 @@
 import React from "react";
 import Song from "../Song";
-import './styles.css'
+import { SearchResultsCont, SearchCard, SearchCardImage, SearchCardContent, SearchCardTitle, SearchCardArtist, SearchCardLength, SearchCardActions, Button } from "./styles";
 
 const SearchResults = ({ data, error, onAddToLibrary, onViewDetails }) => {
     return (
-        <div className="search-results">
+        <SearchResultsCont className="search-results">
             {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
             {data && data.data.length > 0 ? (
                 data.data.map((track) => (
-                    <div className="search-card" key={track.id}>
-                        <img src={track.album.cover_medium} alt={track.title} />
-                        <div className="search-card-content">
-                            <p className="search-card-title">{track.title}</p>
-                            <p className="search-card-artist">{track.artist.name}</p>
-                            <p className="search-card-length"> Duracion:
+                    <SearchCard className="search-card" key={track.id}>
+                        <SearchCardImage src={track.album.cover_medium} alt={track.title} />
+                        <SearchCardContent className="search-card-content">
+                            <SearchCardTitle className="search-card-title">{track.title}</SearchCardTitle>
+                            <SearchCardArtist className="search-card-artist">{track.artist.name}</SearchCardArtist>
+                            <SearchCardLength className="search-card-length"> Duracion:
                                 {`${Math.floor(track.duration / 60)}:${(track.duration % 60)
                                     .toString()
                                     .padStart(2, "0")}`}
-                            </p>
-                        </div>
-                        <div className="search-card-actions">
-                            <button className="add-button" onClick={() => onAddToLibrary(track)}>
+                            </SearchCardLength>
+                        </SearchCardContent>
+                        <SearchCardActions className="search-card-actions">
+                            <Button className="add-button" onClick={() => onAddToLibrary(track)}>
                                 Agregar a mi biblioteca
-                            </button>
-                            <button className="details-button" onClick={() => onViewDetails(track)}>
+                            </Button>
+                            <Button className="details-button" onClick={() => onViewDetails(track)}>
                                 Ver Detalles
-                            </button>
-                        </div>
-                    </div>
+                            </Button>
+                        </SearchCardActions>
+                    </SearchCard>
                 ))
             ) : (
                 <p>No se encontraron resultados.</p>
             )}
-        </div>
+        </SearchResultsCont>
     );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./styles.css";
+import {SongDetailsCont, SongDetailsImage, SongDetailsTitle, SongDetailsParagraph, SongDetailsAlbum, SongDetailsButton} from "./styles";
+
 
 const SongDetails = () => {
     const location = useLocation(); 
@@ -11,15 +12,15 @@ const SongDetails = () => {
     }
 
     return (
-        <div className="song-details">
-            <img src={song.album.cover_medium} alt={song.title} />
-            <h2>{song.title}</h2>
-            <p>Artista: {song.artist.name}</p>
-            <p>Duración: {`${Math.floor(song.duration / 60)}:${(song.duration % 60).toString().padStart(2, "0")}`}</p>
-            <p className="song-details-album">Álbum: {song.album.title}</p>
+        <SongDetailsCont className="song-details">
+            <SongDetailsImage src={song.album.cover_medium} alt={song.title} />
+            <SongDetailsTitle>{song.title}</SongDetailsTitle>
+            <SongDetailsTitle>Artista: {song.artist.name}</SongDetailsTitle>
+            <SongDetailsParagraph>Duración: {`${Math.floor(song.duration / 60)}:${(song.duration % 60).toString().padStart(2, "0")}`}</SongDetailsParagraph>
+            <SongDetailsAlbum className="song-details-album">Álbum: {song.album.title}</SongDetailsAlbum>
             
-            <button onClick={() => navigate(-1)}>Regresar</button>
-        </div>
+            <SongDetailsButton onClick={() => navigate(-1)}>Regresar</SongDetailsButton>
+        </SongDetailsCont>
     );
 };
 
