@@ -12,4 +12,19 @@ const LibrarySong = styled.div`
     text-align: center;
 `;
 
-export { LibraryCont, LibrarySong };
+const RemoveButton = styled.button`
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #ff1a1f;
+  }
+`;
+
+
+export { LibraryCont, LibrarySong, RemoveButton };
