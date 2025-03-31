@@ -1,13 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { LibraryCont, LibrarySong, RemoveButton } from "./styles";
+import { removeFromLibrary } from "../../redux/slices/librarySlice";
 
 const Library = () => {
-  const library = useSelector((state) => state.library.library);
+  const library = useSelector((state) => state.library?.library || []);
+
   const dispatch = useDispatch();
 
   const handleRemove = (id) => {
-    dispatch({ type: 'REMOVE_FROM_LIBRARY', payload: id });
+    dispatch(removeFromLibrary(id));
   };
 
   return (
@@ -17,7 +19,9 @@ const Library = () => {
         <div className="song-list">
           {library.map((song) => (
             <LibrarySong key={song.id} className="library-song">
-              <p>{song.title} - {song.artist.name}</p>
+              <p>
+                {song.title} - {song.artist.name}
+              </p>
               <RemoveButton onClick={() => handleRemove(song.id)}>
                 Eliminar
               </RemoveButton>

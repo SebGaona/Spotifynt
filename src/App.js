@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { addToLibrary } from "./redux/slices/librarySlice";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
@@ -16,8 +17,8 @@ const App = () => {
   const { data, error, handleSearch } = useFetchSongs();
   const navigate = useNavigate();
 
-  const addToLibrary = (song) => {
-    dispatch({ type: 'ADD_TO_LIBRARY', payload: song });
+  const handleAddToLibrary = (song) => {
+    dispatch(addToLibrary(song));
   };
 
   const viewSongDetails = (song) => {
@@ -39,7 +40,7 @@ const App = () => {
                     <SearchResults
                       data={data}
                       error={error}
-                      onAddToLibrary={addToLibrary}
+                      onAddToLibrary={handleAddToLibrary} // Usa la función actualizada
                       onViewDetails={viewSongDetails}
                     />
                   </div>
