@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import SearchResults from "./SearchResults";
+import SearchResults from "../src/components/SearchResults";
 
 describe("SearchResults component", () => {
   const mockOnAddToLibrary = jest.fn();
