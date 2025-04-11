@@ -1,15 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { HeaderCont, Title } from './styles'
+import React from "react";
+import { HeaderCont, Title } from "./styles";
 
 const Header = () => {
-    return (
-        <HeaderCont className="header">
-            <Title as={Link} to="/" className='title'>
-                Spotifyn't
-            </Title>
-        </HeaderCont>
-    );
+  return (
+    <HeaderCont className="header">
+      <Title className="title">Spotifyn't</Title>
+    </HeaderCont>
+  );
 };
 
 export default Header;

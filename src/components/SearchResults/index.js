@@ -18,7 +18,11 @@ const SearchResults = ({ data, error, onAddToLibrary, onViewDetails }) => {
       {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
       {data && data.data.length > 0 ? (
         data.data.map((track) => (
-          <SearchCard className="search-card" key={track.id}>
+          <SearchCard
+            className="search-card"
+            key={track.id}
+            data-testid="track-card"
+          >
             <SearchCardImage src={track.album.cover_medium} alt={track.title} />
             <SearchCardContent className="search-card-content">
               <SearchCardTitle className="search-card-title">
